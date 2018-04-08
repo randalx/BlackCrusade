@@ -84,7 +84,7 @@ var BloodAndHonor = {
 };
 
 on("ready", function(obj) {
-	
+	log("-=> Blood and Honor");
 	setInterval(function(){BloodAndHonor.onTimeout()},1000);
 
 	on("change:graphic:bar3_value", function(obj, prev) {

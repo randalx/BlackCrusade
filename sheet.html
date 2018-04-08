@@ -3236,19 +3236,18 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 							<div class="sheet-item" style="width: 76%;"><input name="attr_Rangedweaponspecial" type="text" /></div>
 							<!--RANGED ATTACK BUTTON -->
 							<!--<div class="sheet-item sheet-redbgns" style="width: 9%;"><button name="roll_Rangedhit" type="roll" value="&{template:darkheresy2} {{name= @{character_name} fires @{rangedweaponname}!}} {{dhdescription=@{character_name} uses @{Rangedweaponname} rolls [[1d100]] Target [[@{BallisticSkill}+(?{Aim | Half aim (+10),+10| No aim (+0),+0 | Full aim (+20),+20} + ?{Range | Point Blank (+30),+30 | Short Range (+10),+10 | Standard range (+0),+0 | Long Range (-10),-10 | Extreme Range (-30),-30} + ?{Rate of Fire/Attack Type|Standard (+10),+10 | Semi auto (+0),+0 | Full Auto (-10),-10 | Called Shot (-20),-20 | Suppressing Fire (-20),-20} + ?{Modifier|0})]].}}"> <span data-i18n="hit-u">Hit</span> </button></div>-->
+							
+							<!--
 							<div class="sheet-item sheet-redbgns" style="width: 9%;">
-							    
-							    <!--
 							    <button name="roll_Rangedhit" type="roll" value="!edy {{--title:@{rangedweaponname}|--subTitle:'sub'|--special:@{Rangedweaponspecial}|--characterName:@{character_name}|--action:attack|--weaponCat:@{Rangedweaponcat}|--weaponType:@{Rangedweapontype}|--class:@{Rangedweaponclass}|--range:@{Rangedweaponrange}|--character:@{character_name}||[[@{BallisticSkill}+(?{Aim | Half aim (+10),+10| No aim (+0),+0 | Full aim (+20),+20} + ?{Range | Point Blank 2m (+30),+30 | Short 0.5x (+10),+10 | Standard 1x (+0),+0 | Medium 2x (-10),-10 | Long 3x (-20),-20 | Extreme 4x (-30),-30} + ?{Rate of Fire/Attack Type|Standard (+10),+10 | Semi auto (+0),+0 | Full Auto (-10),-10 | Called Shot (-20),-20 | Suppressing Fire (-20),-20} + ?{Modifier|0})]] }}">
 							        <span data-i18n="hit-u">Hit</span>
 							    </button>
-							    -->
-							    
-							    <button name="roll_Rangedhit" type="roll" value="!edy {{--title:@{rangedweaponname}|--subTitle:'sub'|--special:@{Rangedweaponspecial}|--characterName:@{character_name}|--action:attack|--weaponCat:@{Rangedweaponcat}|--weaponType:@{Rangedweapontype}|--class:@{Rangedweaponclass}|--range:@{Rangedweaponrange}||--rof:?{Rate of Fire/Attack Type|Standard (+10),std | Semi auto (+0),semiauto | Full Auto (-10),fullauto | Called Shot (-20),calledshot | Suppressing Fire (-20),suppressing}|--character:@{character_name}||[[@{BallisticSkill}+(?{Aim | Half aim (+10),+10| No aim (+0),+0 | Full aim (+20),+20} + ?{Range | Point Blank 2m (+30),+30 | Short 0.5x (+10),+10 | Standard 1x (+0),+0 | Medium 2x (-10),-10 | Long 3x (-20),-20 | Extreme 4x (-30),-30} + ?{Modifier|0}) ]]) }} ">
-                                    <span data-i18n="hit-u">Hit</span>
+							</div>-->
+							<div class="sheet-item sheet-redbgns" style="width: 9%;">
+    							<button name="roll_Rangedhit" type="roll" value="!edy {{--title:@{rangedweaponname}|--subTitle:'sub'|--special:@{Rangedweaponspecial}|--characterName:@{character_name}|--action:attack|--weaponCat:@{Rangedweaponcat}|--weaponType:@{Rangedweapontype}|--class:@{Rangedweaponclass}|--range:@{Rangedweaponrange}||--rof:?{Rate of Fire/Attack Type|Standard (+10),std | Semi auto (+0),semiauto | Full Auto (-10),fullauto | Called Shot (-20),calledshot | Suppressing Fire (-20),suppressing}|--character:@{character_name}||[[@{BallisticSkill}+(?{Aim | Half aim (+10),+10| No aim (+0),+0 | Full aim (+20),+20} + ?{Range | Point Blank 2m (+30),+30 | Short 0.5x (+10),+10 | Standard 1x (+0),+0 | Medium 2x (-10),-10 | Long 3x (-20),-20 | Extreme 4x (-30),-30} + ?{Modifier|0}) ]]) }} ">
+                                        <span data-i18n="hit-u">Hit</span>
                                 </button>
-							    
-							</div>
+                            </div>
 						</div>
 					</div>
 				</fieldset>
