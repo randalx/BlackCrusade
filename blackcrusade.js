@@ -31,6 +31,7 @@
                   cardHtml = viewFactory.CreateDamageView(model);
               }
               else if (action == 'psyattack') {
+                  SoundFX.PlayWeaponSoundEffect(blackCrusadeMessage); //Sound Effect
                   var model = ModelFactory.CreatePsyAttackModel(blackCrusadeMessage);
                   cardHtml = viewFactory.CreatePsyAttackView(model);
               }
@@ -61,11 +62,31 @@
       
       var SoundFX = {
           PlayWeaponSoundEffect : function(blackCrusadeMessage) {
-              var weaponCat = blackCrusadeMessage.weaponCat(); 
-              var soundEffect = this.GetSoundEffect(weaponCat);
+              
+              var soundEffect;
+              var time;
+              
+              switch (blackCrusadeMessage.action()) {
+                  case 'attack' : {
+                      var weaponCat = blackCrusadeMessage.weaponCat(); 
+                      soundEffect = this.GetSoundEffect(weaponCat);
+                      time = 4000;
+                  } break;
+                  case 'psyattack' : {
+                      var spellName = blackCrusadeMessage.spellName();
+                      soundEffect = this.GetSpellSoundEffect(spellName);
+                      time = 12000;
+                  } break;
+                  default : {
+                      log ("PlayWeaponSoundEffect: Unknown action. Update this method");
+                      return;
+                  } 
+              }
+              
+              
               if (soundEffect.length > 0)
               {
-                  this.PlaySound(soundEffect, 4000);
+                  this.PlaySound(soundEffect, time);
               }
           },
       
@@ -81,6 +102,28 @@
               track.set('volume', 100);
               track.set('playing',true);
               setTimeout(function() {track.set('playing',false);}, time);
+          },
+      
+            
+          GetSpellSoundEffect : function(spellName) {
+              var spell = spellName.toLocaleLowerCase().trim();
+              switch (spell) {
+                case 'hate' :
+                    return 'Palpatines Scream HD 1080p by Corsair';
+                case 'precognition' :
+                    return 'ArmsofHadar by DM98362';
+                case 'precognitive dodge' :
+                    return 'Spell block sound for Roll20 by ShadySoundtrackStranger';
+                case 'mind over matter' :
+                    return 'Force Push by RevanMJRoll20';
+                case 'butcher’s offering' :
+                    return 'Nurgle Spell by Barzano';
+                case 'boon of tzeentch' :
+                    return 'Tzeentch Spell by Barzano';
+                  default :
+                    return '';
+              }
+              
           },
       
           GetSoundEffect : function (weaponType) {
