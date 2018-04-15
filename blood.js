@@ -106,6 +106,8 @@ on("ready", function(obj) {
 		// Create pool near token if health drops below 1.
 		else if (obj.get("bar3_value") <= 0) {
 			BloodAndHonor.createBlood(obj.get("_pageid"), obj.get("left"), obj.get("top"), Math.floor(BloodAndHonor.tokenSize * 1.5), BloodAndHonor.chooseBlood("pool"), BloodAndHonor.bloodColor(obj.get("gmnotes")));
+			//Put Dead X on token
+			obj.set("status_dead", true);
 		}
 	});
 
