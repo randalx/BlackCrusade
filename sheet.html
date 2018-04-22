@@ -17,6 +17,9 @@ on("change:repeating_rangedweapons", function() {
 <input type="radio" class="sheet-tab sheet-tab2" name="attr_core-tab" value="2" title="Gear" />
 <span data-i18n="gear-u" class="sheet-tab sheet-tab2" style='line-height: 40px;'>Gear</span>
 
+<input type="radio" class="sheet-tab sheet-tab7" name="attr_core-tab" value="7" title="Psykana" /> 
+<span data-i18n="psykana-u" class="sheet-tab sheet-tab7" style='line-height: 40px;'>Psykana</span>
+
 <input type="radio" class="sheet-tab sheet-tab3" name="attr_core-tab" value="3" title="Advancements" /> 
 <span data-i18n="advancements-u" class="sheet-tab sheet-tab3" style='line-height: 40px;'>Advancements</span>
 
@@ -28,9 +31,6 @@ on("change:repeating_rangedweapons", function() {
 
 <input type="radio" class="sheet-tab sheet-tab6" name="attr_core-tab" value="6" title="Vehicles" /> 
 <span data-i18n="vehicles-u" class="sheet-tab sheet-tab6" style='line-height: 40px;'>Vehicles</span>
-
-<input type="radio" class="sheet-tab sheet-tab7" name="attr_core-tab" value="7" title="Psykana" /> 
-<span data-i18n="psykana-u" class="sheet-tab sheet-tab7" style='line-height: 40px;'>Psykana</span>
 
 <input type="radio" class="sheet-tab sheet-tab8" name="attr_core-tab" value="8" title="Social" /> 
 <span data-i18n="social-u" class="sheet-tab sheet-tab8" style='line-height: 40px;'>Social</span>
@@ -127,8 +127,7 @@ on("change:repeating_rangedweapons", function() {
 						<!-- WeaponSkill (WS) -->
 						<div class="sheet-2colrow">
 							<div class="sheet-col">
-								<button name="roll_WS" type="roll" value="&{template:darkheresy2} {{name=Weapon Skill}} {{dhdescription=@{character_name} rolls Weapon Skill: [[1d100]] Target: [[@{WeaponSkill}+ ?{Modifier|0}]]}}"><span data-i18n="weapon-skill-(ws)-u">Weapon Skill (WS)</span></button>
-								
+								<button name="roll_WS" type="roll" value="!edy {{ --action:charTest|--title:Weapon Skill|--characterName:@{character_name}||[[@{WeaponSkill}+ ?{Modifier|0}]]}}"><span data-i18n="weapon-skill-(ws)-u">Weapon Skill (WS)</span></button>
 							</div>
 							<div class="sheet-col">
 							    <div class="sheet-unnatural_box">
@@ -154,7 +153,8 @@ on("change:repeating_rangedweapons", function() {
 						<!-- BallisticSkill (BS) -->
 						<div class="sheet-2colrow">
 							<div class="sheet-col">
-								<button name="roll_BS" type="roll" value="&{template:darkheresy2} {{name=Ballistic Skill}} {{dhdescription=@{character_name} rolls Ballistic Skill: [[1d100]] Target: [[@{BallisticSkill}+ ?{Modifier|0}]].}}"><span data-i18n="ballistic-skill-(bs)-u">Ballistic Skill (BS)</span></button>
+								<!--<button name="roll_BS" type="roll" value="&{template:darkheresy2} {{name=Ballistic Skill}} {{dhdescription=@{character_name} rolls Ballistic Skill: [[1d100]] Target: [[@{BallisticSkill}+ ?{Modifier|0}]].}}"><span data-i18n="ballistic-skill-(bs)-u">Ballistic Skill (BS)</span></button>-->
+								<button name="roll_BS" type="roll" value="!edy {{ --action:charTest|--title:Ballistic Skill|--characterName:@{character_name}||[[@{BallisticSkill}+ ?{Modifier|0}]]}}"><span data-i18n="ballistic-skill-(bs)-u">Ballistic Skill (BS)</span></button>
 							</div>
 							<div class="sheet-col">
 							    <div class="sheet-unnatural_box">
@@ -181,7 +181,8 @@ on("change:repeating_rangedweapons", function() {
 						<!-- Strength (S) -->
 						<div class="sheet-2colrow">
 							<div class="sheet-col">
-								<button name="roll_S" type="roll" value="&{template:darkheresy2} {{name=Strength}} {{dhdescription=@{character_name} rolls Strength: [[1d100]] Target: [[@{Strength}+ ?{Modifier|0}]].}}"><span data-i18n="strength-(s)-u">Strength (S)</span></button>
+								<!--<button name="roll_S" type="roll" value="&{template:darkheresy2} {{name=Strength}} {{dhdescription=@{character_name} rolls Strength: [[1d100]] Target: [[@{Strength}+ ?{Modifier|0}]].}}"><span data-i18n="strength-(s)-u">Strength (S)</span></button>-->
+								<button name="roll_S" type="roll" value="!edy {{ --action:charTest|--title:Strength|--characterName:@{character_name}||[[@{Strength}+ ?{Modifier|0}]]}}"><span data-i18n="strength-(s)-u">Strength (S)</span></button>
 							</div>
 							<div class="sheet-col">
 							    <div class="sheet-unnatural_box">
@@ -208,7 +209,8 @@ on("change:repeating_rangedweapons", function() {
 						<!-- Toughness (T) -->
 						<div class="sheet-2colrow">
 							<div class="sheet-col">
-								<button name="roll_T" type="roll" value="&{template:darkheresy2} {{name=Toughness}} {{dhdescription=@{character_name} rolls Toughness: [[1d100]] Target: [[@{Toughness}+ ?{Modifier|0}]].}}"><span data-i18n="toughness-(t)-u">Toughness (T)</span></button>
+								<!--<button name="roll_T" type="roll" value="&{template:darkheresy2} {{name=Toughness}} {{dhdescription=@{character_name} rolls Toughness: [[1d100]] Target: [[@{Toughness}+ ?{Modifier|0}]].}}"><span data-i18n="toughness-(t)-u">Toughness (T)</span></button>-->
+								<button name="roll_T" type="roll" value="!edy {{ --action:charTest|--title:Toughness|--characterName:@{character_name}||[[@{Toughness}+ ?{Modifier|0}]]}}"><span data-i18n="toughness-(t)-u">Toughness (T)</span></button>
 							</div>
 							<div class="sheet-col">
 							    <div class="sheet-unnatural_box">
@@ -235,7 +237,8 @@ on("change:repeating_rangedweapons", function() {
 						<!-- Agility (Ag) -->
 						<div class="sheet-2colrow">
 							<div class="sheet-col">
-								<button name="roll_Ag" type="roll" value="&{template:darkheresy2} {{name=Agility}} {{dhdescription=@{character_name} rolls Agility: [[1d100]] Target: [[@{Agility}+ ?{Modifier|0}]].}}"><span data-i18n="agility-(ag)-u">Agility (Ag)</span></button>
+								<!--<button name="roll_Ag" type="roll" value="&{template:darkheresy2} {{name=Agility}} {{dhdescription=@{character_name} rolls Agility: [[1d100]] Target: [[@{Agility}+ ?{Modifier|0}]].}}"><span data-i18n="agility-(ag)-u">Agility (Ag)</span></button>-->
+								<button name="roll_Ag" type="roll" value="!edy {{ --action:charTest|--title:Agility|--characterName:@{character_name}||[[@{Agility}+ ?{Modifier|0}]]}}"><span data-i18n="agility-(ag)-u">Agility (Ag)</span></button>
 							</div>
 							<div class="sheet-col">
 							    <div class="sheet-unnatural_box">
@@ -266,7 +269,8 @@ on("change:repeating_rangedweapons", function() {
 						<!-- Intelligence (Int) -->
 						<div class="sheet-2colrow">
 							<div class="sheet-col">
-								<button name="roll_Int" type="roll" value="&{template:darkheresy2} {{name=Intelligence}} {{dhdescription=@{character_name} rolls Intelligence: [[1d100]] Target: [[@{Intelligence}+ ?{Modifier|0}]].}}"><span data-i18n="intelligence-(int)-u">Intelligence (Int)</span></button>
+								<!--<button name="roll_Int" type="roll" value="&{template:darkheresy2} {{name=Intelligence}} {{dhdescription=@{character_name} rolls Intelligence: [[1d100]] Target: [[@{Intelligence}+ ?{Modifier|0}]].}}"><span data-i18n="intelligence-(int)-u">Intelligence (Int)</span></button>-->
+								<button name="roll_Int" type="roll" value="!edy {{ --action:charTest|--title:Intelligence|--characterName:@{character_name}||[[@{Intelligence}+ ?{Modifier|0}]]}}"><span data-i18n="intelligence-(int)-u">Intelligence (Int)</span></button>
 							</div>
 							<div class="sheet-col">
 							    <div class="sheet-unnatural_box">
@@ -293,7 +297,8 @@ on("change:repeating_rangedweapons", function() {
 						<!-- Perception (Per) -->
 						<div class="sheet-2colrow">
 							<div class="sheet-col">
-								<button name="roll_Per" type="roll" value="&{template:darkheresy2} {{name=Perception}} {{dhdescription=@{character_name} rolls Perception: [[1d100]] Target: [[@{Perception}+ ?{Modifier|0}]].}}"><span data-i18n="perception-(per)-u">Perception (Per)</span></button>
+								<!--<button name="roll_Per" type="roll" value="&{template:darkheresy2} {{name=Perception}} {{dhdescription=@{character_name} rolls Perception: [[1d100]] Target: [[@{Perception}+ ?{Modifier|0}]].}}"><span data-i18n="perception-(per)-u">Perception (Per)</span></button>-->
+								<button name="roll_Per" type="roll" value="!edy {{ --action:charTest|--title:Perception|--characterName:@{character_name}||[[@{Perception}+ ?{Modifier|0}]]}}"><span data-i18n="perception-(per)-u">Perception (Per)</span></button>
 							</div>
 							<div class="sheet-col">
 							    <div class="sheet-unnatural_box">
@@ -320,7 +325,8 @@ on("change:repeating_rangedweapons", function() {
 						<!-- Willpower (WP) -->
 						<div class="sheet-2colrow">
 							<div class="sheet-col">
-								<button name="roll_WP" type="roll" value="&{template:darkheresy2} {{name=Willpower}} {{dhdescription=@{character_name} rolls Willpower: [[1d100]] Target: [[@{Willpower}+ ?{Modifier|0}]].}}"><span data-i18n="willpower-(wp)-u">Willpower (WP)</span></button>
+								<!--<button name="roll_WP" type="roll" value="&{template:darkheresy2} {{name=Willpower}} {{dhdescription=@{character_name} rolls Willpower: [[1d100]] Target: [[@{Willpower}+ ?{Modifier|0}]].}}"><span data-i18n="willpower-(wp)-u">Willpower (WP)</span></button>-->
+								<button name="roll_WP" type="roll" value="!edy {{ --action:charTest|--title:Willpower|--characterName:@{character_name}||[[@{Willpower}+ ?{Modifier|0}]]}}"><span data-i18n="willpower-(wp)-u">Willpower (WP)</span></button>
 							</div>
 							<div class="sheet-col">
 							    <div class="sheet-unnatural_box">
@@ -347,7 +353,8 @@ on("change:repeating_rangedweapons", function() {
 						<!-- Fellowship (Fel) -->
 						<div class="sheet-2colrow">
 							<div class="sheet-col">
-								<button name="roll_Fel" type="roll" value="&{template:darkheresy2} {{name=Fellowship}} {{dhdescription=@{character_name} rolls Fellowship: [[1d100]] Target: [[@{Fellowship}+ ?{Modifier|0}]].}}"><span data-i18n="fellowship-(fel)-u">Fellowship (Fel)</span></button>
+								<!--<button name="roll_Fel" type="roll" value="&{template:darkheresy2} {{name=Fellowship}} {{dhdescription=@{character_name} rolls Fellowship: [[1d100]] Target: [[@{Fellowship}+ ?{Modifier|0}]].}}"><span data-i18n="fellowship-(fel)-u">Fellowship (Fel)</span></button>-->
+								<button name="roll_Fel" type="roll" value="!edy {{ --action:charTest|--title:Fellowship|--characterName:@{character_name}||[[@{Fellowship}+ ?{Modifier|0}]]}}"><span data-i18n="fellowship-(fel)-u">Fellowship (Fel)</span></button>
 							</div>
 							<div class="sheet-col">
 							    <div class="sheet-unnatural_box">
@@ -374,7 +381,8 @@ on("change:repeating_rangedweapons", function() {
 						<!-- Infamy (Ifl) -->
 						<div class="sheet-2colrow">
 							<div class="sheet-col">
-								<button name="roll_Inf" type="roll" value="&{template:darkheresy2} {{name=Infamy}} {{dhdescription=@{character_name} rolls Infamy: [[1d100]] Target: [[@{Infamy}+ ?{Modifier|0}]].}}"><span data-i18n="infamy-(inf)-u">Infamy (Inf)</span></button>
+								<!--<button name="roll_Inf" type="roll" value="&{template:darkheresy2} {{name=Infamy}} {{dhdescription=@{character_name} rolls Infamy: [[1d100]] Target: [[@{Infamy}+ ?{Modifier|0}]].}}"><span data-i18n="infamy-(inf)-u">Infamy (Inf)</span></button>-->
+								<button name="roll_Inf" type="roll" value="!edy {{ --action:charTest|--title:Infamy|--characterName:@{character_name}||[[@{Infamy}+ ?{Modifier|0}]]}}"><span data-i18n="infamy-(inf)-u">Infamy (Inf)</span></button>
 							</div>
 							<div class="sheet-col">
 							    <div class="sheet-unnatural_box">
@@ -791,7 +799,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Acrobatics" type="roll" 
-											value="&{template:darkheresy2} {{name=Acrobatics}} {{dhdescription=@{character_name} rolls Acrobatics [[1d100]] Target [[@{AcrobaticsCharacteristic} + (-20 + @{Acrobatics1} + @{Acrobatics2} + @{Acrobatics3} + @{Acrobatics4}) + ?{Target Modifier|0}]].}}">
+										    value="!edy {{ --action:skillTest|--title:Acrobatics|--characterName:@{character_name}||[[@{AcrobaticsCharacteristic} + (-20 + @{Acrobatics1} + @{Acrobatics2} + @{Acrobatics3} + @{Acrobatics4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="acrobatics-u">Acrobatics</span>
 										</button>
 									</div>
@@ -814,7 +822,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Athletics" type="roll" 
-											value="&{template:darkheresy2} {{name=Athletics}} {{dhdescription=@{character_name} rolls Athletics [[1d100]] Target [[@{AthleticsCharacteristic} + (-20 + @{Athletics1} + @{Athletics2} + @{Athletics3} + @{Athletics4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Athletics|--characterName:@{character_name}||[[@{AthleticsCharacteristic} + (-20 + @{Athletics1} + @{Athletics2} + @{Athletics3} + @{Athletics4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="athletics-u">Athletics</span>
 										</button>
 									</div>
@@ -837,7 +845,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Awareness" type="roll" 
-											value="&{template:darkheresy2} {{name=Awareness}} {{dhdescription=@{character_name} rolls Awareness [[1d100]] Target [[@{AwarenessCharacteristic} + (-20 + @{Awareness1} + @{Awareness2} + @{Awareness3} + @{Awareness4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Awareness|--characterName:@{character_name}||[[@{AwarenessCharacteristic} + (-20 + @{Awareness1} + @{Awareness2} + @{Awareness3} + @{Awareness4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="awareness-u">Awareness</span>
 										</button>
 									</div>
@@ -861,7 +869,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Charm" type="roll" 
-											value="&{template:darkheresy2} {{name=Charm}} {{dhdescription=@{character_name} rolls Charm [[1d100]] Target [[@{CharmCharacteristic} + (-20 + @{Charm1} + @{Charm2} + @{Charm3} + @{Charm4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Charm|--characterName:@{character_name}||[[@{CharmCharacteristic} + (-20 + @{Charm1} + @{Charm2} + @{Charm3} + @{Charm4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="charm-u">Charm</span>
 										</button>
 									</div>
@@ -884,7 +892,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Command" type="roll" 
-											value="&{template:darkheresy2} {{name=Command}} {{dhdescription=@{character_name} rolls Command [[1d100]] Target [[@{CommandCharacteristic} + (-20 + @{Command1} + @{Command2} + @{Command3} + @{Command4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Command|--characterName:@{character_name}||[[@{CommandCharacteristic} + (-20 + @{Command1} + @{Command2} + @{Command3} + @{Command4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="command-u">Command</span>
 										</button>
 									</div>
@@ -909,7 +917,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Commerce" type="roll" 
-											value="&{template:darkheresy2} {{name=Commerce}} {{dhdescription=@{character_name} rolls Commerce [[1d100]] Target [[@{CommerceCharacteristic} + (-20 + @{Commerce1} + @{Commerce2} + @{Commerce3} + @{Commerce4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Commerce|--characterName:@{character_name}||[[@{CommerceCharacteristic} + (-20 + @{Commerce1} + @{Commerce2} + @{Commerce3} + @{Commerce4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="commerce-u">Commerce</span>
 										</button>
 									</div>
@@ -932,7 +940,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Deceive" type="roll" 
-											value="&{template:darkheresy2} {{name=Deceive}} {{dhdescription=@{character_name} rolls Deceive [[1d100]] Target [[@{DeceiveCharacteristic} + (-20 + @{Deceive1} + @{Deceive2} + @{Deceive3} + @{Deceive4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Deceive|--characterName:@{character_name}||[[@{DeceiveCharacteristic} + (-20 + @{Deceive1} + @{Deceive2} + @{Deceive3} + @{Deceive4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="deceive-u">Deceive</span>
 										</button>
 									</div>
@@ -955,7 +963,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Dodge" type="roll" 
-											value="&{template:darkheresy2} {{name=Dodge}} {{dhdescription=@{character_name} rolls Dodge [[1d100]] Target [[@{DodgeCharacteristic} + (-20 + @{Dodge1} + @{Dodge2} + @{Dodge3} + @{Dodge4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Dodge|--characterName:@{character_name}||[[@{DodgeCharacteristic} + (-20 + @{Dodge1} + @{Dodge2} + @{Dodge3} + @{Dodge4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="dodge-u">Dodge</span>
 										</button>
 									</div>
@@ -977,7 +985,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Inquiry" type="roll" 
-											value="&{template:darkheresy2} {{name=Inquiry}} {{dhdescription=@{character_name} rolls Inquiry [[1d100]] Target [[@{InquiryCharacteristic} + (-20 + @{Inquiry1} + @{Inquiry2} + @{Inquiry3} + @{Inquiry4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Inquiry|--characterName:@{character_name}||[[@{InquiryCharacteristic} + (-20 + @{Inquiry1} + @{Inquiry2} + @{Inquiry3} + @{Inquiry4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="inquiry-u">Inquiry</span>
 										</button>
 									</div>
@@ -1001,7 +1009,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Interrogation" type="roll" 
-											value="&{template:darkheresy2} {{name=Inquiry}} {{dhdescription=@{character_name} rolls Interrogation [[1d100]] Target [[@{InterrogationCharacteristic} + (-20 + @{Interrogation1} + @{Interrogation2} + @{Interrogation3} + @{Interrogation4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Interrogation|--characterName:@{character_name}||[[@{InterrogationCharacteristic} + (-20 + @{Interrogation1} + @{Interrogation2} + @{Interrogation3} + @{Interrogation4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="interrogation-u">Interrogation</span>
 										</button>
 									</div>
@@ -1024,7 +1032,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Intimidate" type="roll" 
-											value="&{template:darkheresy2} {{name=Intimidate}} {{dhdescription=@{character_name} rolls Intimidate [[1d100]] Target [[@{IntimidateCharacteristic} + (-20 + @{Intimidate1} + @{Intimidate2} + @{Intimidate3} + @{Intimidate4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Intimidate|--characterName:@{character_name}||[[@{IntimidateCharacteristic} + (-20 + @{Intimidate1} + @{Intimidate2} + @{Intimidate3} + @{Intimidate4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="intimidate-u">Intimidate</span>
 										</button>
 									</div>
@@ -1047,7 +1055,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Logic" type="roll" 
-											value="&{template:darkheresy2} {{name=Logic}} {{dhdescription=@{character_name} rolls Logic [[1d100]] Target [[@{LogicCharacteristic} + (-20 + @{Logic1} + @{Logic2} + @{Logic3} + @{Logic4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Logic|--characterName:@{character_name}||[[@{LogicCharacteristic} + (-20 + @{Logic1} + @{Logic2} + @{Logic3} + @{Logic4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="logic-u">Logic</span>
 										</button>
 									</div>
@@ -1070,7 +1078,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Medicae" type="roll" 
-											value="&{template:darkheresy2} {{name=Medicae}} {{dhdescription=@{character_name} rolls Medicae [[1d100]] Target [[@{MedicaeCharacteristic} + (-20 + @{Medicae1} + @{Medicae2} + @{Medicae3} + @{Medicae4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Medicae|--characterName:@{character_name}||[[@{MedicaeCharacteristic} + (-20 + @{Medicae1} + @{Medicae2} + @{Medicae3} + @{Medicae4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="medicae-u">Medicae</span>
 										</button>
 									</div>
@@ -1108,7 +1116,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:100%">
 										<button name="roll_Surface" type="roll" 
-											value="&{template:darkheresy2} {{name=Navigate (Surface)}} {{dhdescription=@{character_name} rolls Navigate (Surface) [[1d100]] Target [[@{NavigateCharacteristic} + (-20 + @{Surface1} + @{Surface2} + @{Surface3} + @{Surface4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Navigate (Surface)|--characterName:@{character_name}||[[@{NavigateCharacteristic} + (-20 + @{Surface1} + @{Surface2} + @{Surface3} + @{Surface4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="surface-u">Surface</span>
 										</button>
 									</div>
@@ -1125,7 +1133,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:100%">
 										<button name="roll_Stellar" type="roll" 
-											value="&{template:darkheresy2} {{name= Navigate (Stellar)}} {{dhdescription=@{character_name} rolls Navigate (Stellar) [[1d100]] Target [[@{NavigateCharacteristic} + (-20 + @{Stellar1} + @{Stellar2} + @{Stellar3} + @{Stellar4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Navigate (Stellar)|--characterName:@{character_name}||[[@{NavigateCharacteristic} + (-20 + @{Stellar1} + @{Stellar2} + @{Stellar3} + @{Stellar4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="stellar-u">Stellar</span>
 										</button>
 									</div>
@@ -1142,7 +1150,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:100%">
 										<button name="roll_Warp" type="roll" 
-											value="&{template:darkheresy2} {{name= Navigate (Warp)}} {{dhdescription=@{character_name} rolls Navigate (Warp) [[1d100]] Target [[@{NavigateCharacteristic} + (-20 + @{Warp1} + @{Warp2} + @{Warp3} + @{Warp4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Navigate (Warp)|--characterName:@{character_name}||[[@{NavigateCharacteristic} + (-20 + @{Warp1} + @{Warp2} + @{Warp3} + @{Warp4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="warp-u">Warp</span>
 										</button>
 									</div>
@@ -1173,7 +1181,8 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:100%">
 										<button name="roll_Aeronautica" type="roll" 
-											value="&{template:darkheresy2} {{name= Operate (Aeronautica)}} {{dhdescription=@{character_name} rolls Operate (Aeronautica) [[1d100]] Target [[@{OperateCharacteristic} + (-20 + @{Aeronautica1} + @{Aeronautica2} + @{Aeronautica3} + @{Aeronautica4}) + ?{Target Modifier|0}]].}}"><span data-i18n="aeronautica-u">Aeronautica</span>
+											value="!edy {{ --action:skillTest|--title:Operate (Aeronautica)|--characterName:@{character_name}||[[@{OperateCharacteristic} + (-20 + @{Aeronautica1} + @{Aeronautica2} + @{Aeronautica3} + @{Aeronautica4}) + ?{Target Modifier|0}]]}}">
+										    <span data-i18n="aeronautica-u">Aeronautica</span>
 										</button>
 									</div>
 								</div>
@@ -1189,7 +1198,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:100%">
 										<button name="roll_OSurface" type="roll" 
-											value="&{template:darkheresy2} {{name= Operate (Surface)}} {{dhdescription=@{character_name} rolls Operate (Surface) [[1d100]] Target [[@{OperateCharacteristic} + (-20 + @{OSurface1} + @{OSurface2} + @{OSurface3} + @{OSurface4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Operate (Surface)|--characterName:@{character_name}||[[@{OperateCharacteristic} + (-20 + @{OSurface1} + @{OSurface2} + @{OSurface3} + @{OSurface4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="surface-u">Surface</span>
 										</button>
 									</div>
@@ -1206,7 +1215,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:100%">
 										<button name="roll_Voidship" type="roll" 
-											value="&{template:darkheresy2} {{name= Operate (Voidship)}} {{dhdescription=@{character_name} rolls Operate (Voidship) [[1d100]] Target [[@{OperateCharacteristic} + (-20 + @{Voidship1} + @{Voidship2} + @{Voidship3} + @{Voidship4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Operate (Voidship)|--characterName:@{character_name}||[[@{OperateCharacteristic} + (-20 + @{Voidship1} + @{Voidship2} + @{Voidship3} + @{Voidship4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="voidship-u">Voidship</span>
 										</button>
 									</div>
@@ -1223,7 +1232,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Parry" type="roll" 
-											value="&{template:darkheresy2} {{name= Parry}} {{dhdescription=@{character_name} rolls Parry [[1d100]] Target [[@{ParryCharacteristic} + (-20 + @{Parry1} + @{Parry2} + @{Parry3} + @{Parry4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Parry|--characterName:@{character_name}||[[@{ParryCharacteristic} + (-20 + @{Parry1} + @{Parry2} + @{Parry3} + @{Parry4}) + ?{Target Modifier|0}]].}}">
 											<span data-i18n="parry-u">Parry</span>
 										</button>
 									</div>
@@ -1245,7 +1254,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Psyniscience" type="roll" 
-											value="&{template:darkheresy2} {{name= Psyniscience}} {{dhdescription=@{character_name} rolls Psyniscience [[1d100]] Target [[@{PsyniscienceCharacteristic} + (-20 + @{Psyniscience1} + @{Psyniscience2} + @{Psyniscience3} + @{Psyniscience4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Psyniscience|--characterName:@{character_name}||[[@{PsyniscienceCharacteristic} + (-20 + @{Psyniscience1} + @{Psyniscience2} + @{Psyniscience3} + @{Psyniscience4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="psyniscience-u">Psyniscience</span>
 										</button>
 									</div>
@@ -1268,7 +1277,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Scrutiny" type="roll" 
-											value="&{template:darkheresy2} {{name= Scrutiny}} {{dhdescription=@{character_name} rolls Scrutiny [[1d100]] Target [[@{ScrutinyCharacteristic} + (-20 + @{Scrutiny1} + @{Scrutiny2} + @{Scrutiny3} + @{Scrutiny4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Scrutiny|--characterName:@{character_name}||[[@{ScrutinyCharacteristic} + (-20 + @{Scrutiny1} + @{Scrutiny2} + @{Scrutiny3} + @{Scrutiny4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="scrutiny-u">Scrutiny</span>
 										</button>
 									</div>
@@ -1291,7 +1300,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Security" type="roll" 
-											value="&{template:darkheresy2} {{name= Security}} {{dhdescription=@{character_name} rolls Security [[1d100]] Target [[@{SecurityCharacteristic} + (-20 + @{Security1} + @{Security2} + @{Security3} + @{Security4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Security|--characterName:@{character_name}||[[@{SecurityCharacteristic} + (-20 + @{Security1} + @{Security2} + @{Security3} + @{Security4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="security-u">Security</span>
 										</button>
 									</div>
@@ -1314,7 +1323,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_SleightOfHand" type="roll" 
-											value="&{template:darkheresy2} {{name= Sleight of Hand}} {{dhdescription=@{character_name} rolls Sleight of Hand [[1d100]] Target [[@{SleightOfHandCharacteristic} + (-20 + @{SleightOfHand1} + @{SleightOfHand2} + @{SleightOfHand3} + @{SleightOfHand4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Sleight of Hand|--characterName:@{character_name}||[[@{SleightOfHandCharacteristic} + (-20 + @{SleightOfHand1} + @{SleightOfHand2} + @{SleightOfHand3} + @{SleightOfHand4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="sleight-of-hand-u">Sleight Of Hand</span>
 										</button>
 									</div>
@@ -1336,7 +1345,8 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<td>
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
-										<button name="roll_Stealth" type="roll" value="&{template:darkheresy2} {{name= Stealth}} {{dhdescription=@{character_name} rolls Stealth [[1d100]] Target [[@{StealthCharacteristic} + (-20 + @{Stealth1} + @{Stealth2} + @{Stealth3} + @{Stealth4}) + ?{Target Modifier|0}]].}}">
+										<button name="roll_Stealth" type="roll" 
+										    value="!edy {{ --action:skillTest|--title:Stealth|--characterName:@{character_name}||[[@{StealthCharacteristic} + (-20 + @{Stealth1} + @{Stealth2} + @{Stealth3} + @{Stealth4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="stealth-u">Stealth</span>
 										</button>
 									</div>
@@ -1359,7 +1369,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_Survival" type="roll" 
-											value="&{template:darkheresy2} {{name= Survival}} {{dhdescription=@{character_name} rolls Survival [[1d100]] Target [[@{SurvivalCharacteristic} + (-20 + @{Survival1} + @{Survival2} + @{Survival3} + @{Survival4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Survival|--characterName:@{character_name}||[[@{SurvivalCharacteristic} + (-20 + @{Survival1} + @{Survival2} + @{Survival3} + @{Survival4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="survival-u">Survival</span>
 										</button>
 									</div>
@@ -1383,7 +1393,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 								<div class="sheet-row">
 									<div class="sheet-item sheet-DHBtn2" style="width:55%">
 										<button name="roll_TechUse" type="roll" 
-											value="&{template:darkheresy2} {{name= Tech-Use}} {{dhdescription=@{character_name} rolls Tech-Use [[1d100]] Target [[@{TechUseCharacteristic} + (-20 + @{TechUse1} + @{TechUse2} + @{TechUse3} + @{TechUse4}) + ?{Target Modifier|0}]].}}">
+											value="!edy {{ --action:skillTest|--title:Tech-Use|--characterName:@{character_name}||[[@{TechUseCharacteristic} + (-20 + @{TechUse1} + @{TechUse2} + @{TechUse3} + @{TechUse4}) + ?{Target Modifier|0}]]}}">
 											<span data-i18n="tech-use-u">Tech-Use</span>
 										</button>
 									</div>
@@ -3592,7 +3602,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
 </div>
 
 		<!-- This section contains Roll Templates HTML  -->
-		<rolltemplate class="sheet-rolltemplate-darkheresy2">
+<rolltemplate class="sheet-rolltemplate-darkheresy2">
     <table >
         <tr><th>{{name}}</th></tr>
         <tr><td><img src="http://i.imgur.com/g1SVcwZ.png" height="100%" width="auto" max-width="100px"></td></tr>
@@ -3600,7 +3610,7 @@ Black Carapace: While wearing Power Armour, enemies do not gain a bonus to hit y
     </table>
 </rolltemplate>
 
-		<rolltemplate class="sheet-rolltemplate-scattergram">
+<rolltemplate class="sheet-rolltemplate-scattergram">
     <table >
         <tr><th data-i18n="scatter-diagram-u">Scatter Diagram</th></tr>
         <tr><td><img src="http://i.imgur.com/g1SVcwZ.png" height="100%" width="auto" max-width="100px"></td></tr>
