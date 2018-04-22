@@ -26,6 +26,10 @@
                   var model = ModelFactory.CreateAttackModel(blackCrusadeMessage);
                   cardHtml = viewFactory.CreateAttackView(model);
               }
+              else if ((action == 'skillTest') || (action == 'charTest')) {
+                  var model = ModelFactory.CreateCharacteristicTestModel(blackCrusadeMessage);
+                  cardHtml = viewFactory.CreateAttackView(model);
+              }
               else if (action == 'damage') {
                   var model = ModelFactory.CreateDamageModel(blackCrusadeMessage);
                   cardHtml = viewFactory.CreateDamageView(model);
@@ -282,7 +286,6 @@
           this.who                = function () { return this.message.message.who;  }
           this.results            = function () { return this.message.message.inlinerolls[0].results; }
           this.expression         = function () { return this.message.message.inlinerolls[0].expression; }
-          
       }
       
       
@@ -325,9 +328,31 @@
                   "roll" : roll, 
                   "degrees" : degrees, 
                   "hitLocation" : hitLocation, 
-                  "isWeaponJam" : isWeaponJam
+                  "isWeaponJam" : isWeaponJam,
+                  "style" : "attack"
               };
           },
+         
+          CreateCharacteristicTestModel : function(blackCrusadeMessage) {
+             
+            var inlineRoll =  blackCrusadeMessage.results().total; 
+            var inlineRollTip = blackCrusadeMessage.expression();
+            var roll = randomInteger(100); //between [1,100]
+            var degrees = this.CalculateDegreesOfSuccess(inlineRoll, roll);
+             
+            var style = (blackCrusadeMessage.action() === 'skillTest') ? 'skill' : 'characteristic';
+             
+              return {
+                  "playerName" : this.GetPlayerName(blackCrusadeMessage), 
+                  "headerText" : blackCrusadeMessage.title(), 
+                  "target" : inlineRoll, 
+                  "targetTip" : inlineRollTip, 
+                  "roll" : roll, 
+                  "degrees" : degrees,
+                  "style" : style
+              };
+          },
+          
          
           CreateDamageModel : function(blackCrusadeMessage){   
               
@@ -412,7 +437,8 @@
                   "modifiedPsyRatng" : modifiedPsyRatng, 
                   "hitLocation" : hitLocation, 
                   "psykerClass" : blackCrusadeMessage.psykerClass(), 
-                  "requiresPsyRoll" : requiresPsyRoll
+                  "requiresPsyRoll" : requiresPsyRoll,
+                  "style" : 'psy'
               };  
           },
           
@@ -933,7 +959,7 @@
               var view = new View();
               
               //Header
-              view.AddHeader(model.headerText, "", model.headerSub1, model.headerSub2);
+              view.AddHeader(model.headerText, "", model.headerSub1, model.headerSub2, model.style);
               //Target
               view.AddRow(RowObjectFactory.CreateRegularRow(false, 0, "Target", model.targetTip, model.target));
               
@@ -943,7 +969,7 @@
                   //DoS
                   view.AddRow(RowObjectFactory.CreateRegularRow(false, model.degrees, (model.degrees > 0) ? "DoS" : "DoF", "", model.degrees));
                   //Location
-                  if (model.degrees > 0) {
+                  if ((model.degrees > 0) && (typeof model.hitLocation != 'undefined')) {
                       view.AddRow(RowObjectFactory.CreateRegularRow(false, 0, "Location", "", model.hitLocation));
                   }
               }
@@ -983,7 +1009,7 @@
               var view = new View();
                
               //Header
-              view.AddHeader(model.spellName, "", model.psyRange, model.damageCat); 
+              view.AddHeader(model.spellName, "", model.psyRange, model.damageCat, model.style); 
               
               //PR
               view.AddRow(RowObjectFactory.CreateRegularRow(false, 0, model.psyStrengthText + " PR", "", model.modifiedPsyRatng));
@@ -1110,18 +1136,24 @@
           
           this.header = null;
           
-          this.AddHeader = function(main, tip, left, right) {
-              //purple #dd1ac3
-              //black 0f0700
-              //brown 261303
-              const backHeaderColor = '#0f0700';  //Spectral SC //contrail one
+          this.AddHeader = function(main, tip, left, right, style) {
+              
+              var backHeaderColor;
+              switch (style) {
+                  case 'attack' : backHeaderColor = '#690500'; break; //red
+                  case 'characteristic' : backHeaderColor = '#032446'; break; //blue
+                  case 'skill' : backHeaderColor = '#003500'; break; //green
+                  case 'psy' : backHeaderColor = '#410046'; break; //purple
+                  default : backHeaderColor = '#0f0700'; break; //brown
+              }
+
               var headerStyle = `style="font-family: 'Spectral SC' ; font-size: 1.2em ; line-height: 1.2em ; font-weight: normal ; font-style: normal ; font-variant: normal ; letter-spacing: 2px ; text-align: center ; vertical-align: middle ; margin: 0px ; padding: 2px 0px 0px 0px ; border: 1px solid #000000 ; border-radius: 5px 5px 0px 0px ; color: #ffffff ; text-shadow: -1px -1px 0 #000000 , 1px -1px 0 #000000 , -1px 1px 0 #000000 , 1px 1px 0 #000000 ; background-color: ${backHeaderColor} ; background-image: linear-gradient( rgba( 255 , 255 , 255 , .3 ) , rgba( 255 , 255 , 255 , 0 ) )" `;
               var subHeaderStyle = `style="font-family: 'tahoma' ; font-size: 11px ; font-weight: normal ; font-style: normal ; font-variant: normal ; letter-spacing: 1px" `;
               
               var header = "";
               header += `<div ${headerStyle} title='${tip}' class="userscript-showtip userscript-tipsy"  >`;
               header += `${main}`;
-              if ((left !== "") && (right !== "")) {
+              if ( (typeof left != 'undefined') && (left !== "") && (typeof right != 'undefined') && (right !== "")) {
                   header += ` <br><span ${subHeaderStyle} >${left} ♦ ${right}</span>`;
               }
               header += `</div>`;
