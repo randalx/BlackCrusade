@@ -1146,7 +1146,7 @@
                   case 'psy' : backHeaderColor = '#410046'; break; //purple
                   default : backHeaderColor = '#0f0700'; break; //brown
               }
-
+              
               var headerStyle = `style="font-family: 'Spectral SC' ; font-size: 1.2em ; line-height: 1.2em ; font-weight: normal ; font-style: normal ; font-variant: normal ; letter-spacing: 2px ; text-align: center ; vertical-align: middle ; margin: 0px ; padding: 2px 0px 0px 0px ; border: 1px solid #000000 ; border-radius: 5px 5px 0px 0px ; color: #ffffff ; text-shadow: -1px -1px 0 #000000 , 1px -1px 0 #000000 , -1px 1px 0 #000000 , 1px 1px 0 #000000 ; background-color: ${backHeaderColor} ; background-image: linear-gradient( rgba( 255 , 255 , 255 , .3 ) , rgba( 255 , 255 , 255 , 0 ) )" `;
               var subHeaderStyle = `style="font-family: 'tahoma' ; font-size: 11px ; font-weight: normal ; font-style: normal ; font-variant: normal ; letter-spacing: 1px" `;
               
@@ -1191,8 +1191,9 @@
               
               //Card
               var padding = small ? 35 : 20;
-              display += `<div style="clear: both ; margin-left: -7px ; border-radius: 5px; padding:0,${padding}px,0,${padding}px;">${cardContent}</div>`;
-                      
+              var shadow = "box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;";
+              display += `<div style="clear: both;  margin-left: -7px; border-radius: 5px; padding:0,${padding}px,0,${padding}px;"><div style="${shadow}">${cardContent}</div></div>`;
+                                    
               return display;
           };
           
