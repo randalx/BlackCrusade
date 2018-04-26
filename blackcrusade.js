@@ -20,6 +20,7 @@
               var viewFactory = new ViewFactory();
               var cardHtml = "";
               var action = blackCrusadeMessage.action();
+              var isWhisper = false;
               
               if (action == 'attack') {
                   SoundFX.PlayWeaponSoundEffect(blackCrusadeMessage); //Sound Effect
@@ -33,6 +34,12 @@
               else if (action == 'damage') {
                   var model = ModelFactory.CreateDamageModel(blackCrusadeMessage);
                   cardHtml = viewFactory.CreateDamageView(model);
+              }
+              else if (action == 'applyDamage') {
+                  var model = ModelFactory.CreateApplyDamageModel(blackCrusadeMessage);
+                  cardHtml = viewFactory.CreateApplyDamageView(model);
+                  isWhisper = playerIsGM(msg.playerid);
+                 // cardHtml = `cn2= ${blackCrusadeMessage.characterName()} dam=${blackCrusadeMessage.damage()} pen=${blackCrusadeMessage.penetration()} wounds=${blackCrusadeMessage.wounds()} toughness=${blackCrusadeMessage.toughness()} armour=${blackCrusadeMessage.armour()} unnaturalToughness=${blackCrusadeMessage.unnaturalToughness()} machine=${blackCrusadeMessage.machine()}  `;
               }
               else if (action == 'psyattack') {
                   SoundFX.PlayWeaponSoundEffect(blackCrusadeMessage); //Sound Effect
@@ -59,7 +66,12 @@
                    log("Unknown Action!");
               }
               
-              sendChat("", '/desc ' + cardHtml);
+            if (isWhisper) {
+                sendChat('',`/w ${msg.who} ${cardHtml}`);
+            }
+            else {
+                sendChat('', `/desc ${cardHtml}`);
+            }
           }
       });
       
@@ -286,6 +298,15 @@
           this.who                = function () { return this.message.message.who;  }
           this.results            = function () { return this.message.message.inlinerolls[0].results; }
           this.expression         = function () { return this.message.message.inlinerolls[0].expression; }
+          
+          this.damage             = function () { return this.message.GetParamValue("--damage"); }
+          this.wounds             = function () { return this.message.GetParamValue("--wounds"); }
+          this.armour             = function () { return this.message.GetParamValue("--armour"); }
+          this.toughness          = function () { return this.message.GetParamValue("--toughness"); }
+          this.unnaturalToughness = function () { return this.message.GetParamValue("--unt"); }
+          this.machine            = function () { return this.message.GetParamValue("--machine"); }
+          
+          
       }
       
       
@@ -353,7 +374,6 @@
               };
           },
           
-         
           CreateDamageModel : function(blackCrusadeMessage){   
               
               var results =  blackCrusadeMessage.results(); 
@@ -383,6 +403,39 @@
                   "isZealous" : isZealous,
                   "characterName" : blackCrusadeMessage.characterName(),
               };    
+          },
+          
+          CreateApplyDamageModel : function(blackCrusadeMessage) {
+              
+              //I want basically a combo of info and the final damage
+              var totalAc =  parseInt(blackCrusadeMessage.armour()) + parseInt(blackCrusadeMessage.machine());
+            //log(`totalAc = ${totalAc}`);
+              var totalTough =  parseInt(blackCrusadeMessage.unnaturalToughness()) + Math.floor(blackCrusadeMessage.toughness()/10);
+            //log(`totalTough = ${totalTough}`);
+              var totalAC = Math.max(totalAc - parseInt(blackCrusadeMessage.penetration()), 0);
+            //log(`totalAC = ${totalAC}`);
+              var totalDamage = Math.max( (parseInt(blackCrusadeMessage.damage()) - totalAC - totalTough), 0)
+            //log(`totalDamage = ${totalDamage}`);
+              
+              //log (`Answer ${blackCrusadeMessage.damage()} - ${totalAC} - ${totalTough}`);
+              
+              
+              damageTip = `Max((${blackCrusadeMessage.damage()} - Max((${blackCrusadeMessage.armour()} + ${blackCrusadeMessage.machine()} - ${blackCrusadeMessage.penetration()}), 0) - Floor(${blackCrusadeMessage.toughness()}/10)), 0)`; //format all the info here
+            //log(damageTip);
+            
+              return {
+                  "headerText" : "Apply Damage",
+                  "playerName" : this.GetPlayerName(blackCrusadeMessage),
+                  "characterName" : blackCrusadeMessage.characterName(),
+                  "damage" : blackCrusadeMessage.damage(), 
+                  "penetration" : blackCrusadeMessage.penetration(), 
+                  "toughness" : blackCrusadeMessage.toughness(), 
+                  "unnaturalToughness" : blackCrusadeMessage.unnaturalToughness(), 
+                  "armour" : blackCrusadeMessage.armour(),
+                  "machine" : blackCrusadeMessage.machine(),
+                  "totalDamage" : totalDamage,
+                  "damageTip" : damageTip
+              };
           },
           
           CreatePsyDamageModel : function(blackCrusadeMessage){   
@@ -994,15 +1047,44 @@
               
               //Zealous Hatred
               if (model.isZealous) {
-          	    view.AddRow(RowObjectFactory.CreateCenteredRow("☠ ZEALOUS HATRED! ☠ ", ""));
-              
+          	      view.AddRow(RowObjectFactory.CreateCenteredRow("☠ ZEALOUS HATRED! ☠ ", ""));
+              }
+
+              view.AddRow(RowObjectFactory.CreateHtmlRow( this.CreateApplyDamageButton(model.characterName, model.damage, model.penetration)));
+
+              //Zealous Hatred
+              if (model.isZealous) {
                   //Add Zealous Roll Button
                   view.AddRow(RowObjectFactory.CreateHtmlRow( this.CreateZealousHatredButton(model.characterName, model.headerSub2)));
-              
               }
+
+              return view.CreateCard(model.playerName, true);
+          }
+          
+          this.CreateApplyDamageView = function(model) {
+              var view = new View();
+              
+              //TODO something like Madox damages troll
+              
+              //Add to the view
+              /*
+              "playerName" : this.GetPlayerName(blackCrusadeMessage),
+              "characterName" : blackCrusadeMessage.characterName(),
+              "damage" : blackCrusadeMessage.damage(), 
+              "penetration" : blackCrusadeMessage.penetration(), 
+              "toughness" : blackCrusadeMessage.toughness(), 
+              "unnaturalToughness" : blackCrusadeMessage.unnaturalToughness(), 
+              "armour" : blackCrusadeMessage.armour(),
+              "machine" : blackCrusadeMessage.machine(),
+              "totalDamage" : totalDamage
+                  */
+               view.AddHeader(model.headerText, "", "", "");
+               view.AddRow(RowObjectFactory.CreateCenteredRow(`${model.damage} Pen ${model.penetration}`, ""));
+               view.AddRow(RowObjectFactory.CreateCenteredRow(`◎ ${model.totalDamage} ◎`, model.damageTip));
               
               return view.CreateCard(model.playerName, true);
           }
+          
           
           this.CreatePsyAttackView = function(model) {
               
@@ -1100,7 +1182,28 @@
           this.CreateZealousHatredButton = function(characterName, weaponType) {
               return `[Roll Critical Damage](!edy{{--characterName%%COL%%${characterName}|--action%%COL%%zealousCrit|--weaponType%%COL%%${weaponType}|}})`;
           }
+          
+          this.CreateApplyDamageButton = function(characterName, damage, penetration) {
+              
+            //@{selected|Wounds}
+            //@{selected|HArmour} //per location
+            //@{UnT}+floor(@{Toughness}/10)+@{mactrait}
+            //?{Location|Head,@{selected|HArmour}|Right Arm|@{selected|HArmour}}
+            
+            //--armour%%COL%%?{Location|Head,@{selected|HArmour}|Right Arm|@{selected|HArmour}}|
+            //  --toughness%%COL%%@{selected|UnT}+floor(@{selected|Toughness}/10)+@{selected|mactrait}|
+            //--wounds%%COL%%@{selected|Wounds}|
+            
+            //--toughness%%COL%%@{selected|UnT}+floor(@{selected|Toughness}/10)+@{selected|mactrait}|
+            //return `[Apply Damage](!edy{{--characterName%%COL%%${characterName}|--action%%COL%%applyDamage|--damage%%COL%%${damage}|--pen%%COL%%${penetration}|--wounds%%COL%%@{selected|Wounds}|--toughness%%COL%%@{selected|UnT}+floor(@{selected|Toughness}/10)|--armour%%COL%%?{Location|Head,@{selected|HArmour}|Right Arm|@{selected|HArmour}}|}})`;
+            return `[Apply Damage](!edy{{--characterName%%COL%%${characterName}|--action%%COL%%applyDamage|--damage%%COL%%?{Damage|${damage}}|--pen%%COL%%${penetration}|--unt%%COL%%&#64;{selected|UnT}|--toughness%%COL%%&#64;{selected|Toughness}|--machine%%COL%%&#64;{selected|mactrait}|--armour%%COL%%?{Location|Head,&#64;{selected|HArmour}|Right Arm,&#64;{selected|ArArmour}|Body,&#64;{selected|BArmour}|Left Arm,&#64;{selected|AlArmour}|Right Leg,&#64;{selected|LrArmour}|Left Leg,&#64;{selected|LlArmour}|}|}})`;
+            
+            // return (`[Apply Damage 3](!edy{{--characterName%%COL%%${characterName}|--action%%COL%%applyDamage|--damage%%COL%%?{Damage|${damage}}|--pen%%COL%%${penetration}|--unt%%COL%%&#64;{selected|UnT}}})`);
+          }
+          
+           
       }
+      
       
       // Row Factory for use in View
       var RowObjectFactory = {
@@ -1146,7 +1249,7 @@
                   case 'psy' : backHeaderColor = '#410046'; break; //purple
                   default : backHeaderColor = '#0f0700'; break; //brown
               }
-              
+
               var headerStyle = `style="font-family: 'Spectral SC' ; font-size: 1.2em ; line-height: 1.2em ; font-weight: normal ; font-style: normal ; font-variant: normal ; letter-spacing: 2px ; text-align: center ; vertical-align: middle ; margin: 0px ; padding: 2px 0px 0px 0px ; border: 1px solid #000000 ; border-radius: 5px 5px 0px 0px ; color: #ffffff ; text-shadow: -1px -1px 0 #000000 , 1px -1px 0 #000000 , -1px 1px 0 #000000 , 1px 1px 0 #000000 ; background-color: ${backHeaderColor} ; background-image: linear-gradient( rgba( 255 , 255 , 255 , .3 ) , rgba( 255 , 255 , 255 , 0 ) )" `;
               var subHeaderStyle = `style="font-family: 'tahoma' ; font-size: 11px ; font-weight: normal ; font-style: normal ; font-variant: normal ; letter-spacing: 1px" `;
               
@@ -1193,7 +1296,8 @@
               var padding = small ? 35 : 20;
               var shadow = "box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;";
               display += `<div style="clear: both;  margin-left: -7px; border-radius: 5px; padding:0,${padding}px,0,${padding}px;"><div style="${shadow}">${cardContent}</div></div>`;
-                                    
+              
+                      
               return display;
           };
           
@@ -1219,7 +1323,8 @@
               //font-family: 'contrail one'
               var dataStyle = ``;
               if (rowObject.includeBackground) {
-                  var backColour = 'background-color: #660000'; //yellow #fffea2 //reddish 660000 //black
+                  //var backColour = 'background-color: #660000'; //yellow #fffea2 //reddish 660000 //black
+                  var backColour = 'background-color: #fffea2'; //yellow #fffea2 //reddish 660000 //black
                   dataStyle = `text-align: center ; font-size: 100% ; display: inline-block ; font-weight: bold ; height: 1em ; min-width: 1.75em ; margin-top: -1px ; margin-bottom: 1px ; padding: 0px 2px ; border: 1px solid ; border-radius: 13px ; ${backColour} ; border-color: #87850a ; ${dataFontStyle}`;    
               }
               else {
