@@ -39,7 +39,6 @@
                   var model = ModelFactory.CreateApplyDamageModel(blackCrusadeMessage);
                   cardHtml = viewFactory.CreateApplyDamageView(model);
                   isWhisper = playerIsGM(msg.playerid);
-                 // cardHtml = `cn2= ${blackCrusadeMessage.characterName()} dam=${blackCrusadeMessage.damage()} pen=${blackCrusadeMessage.penetration()} wounds=${blackCrusadeMessage.wounds()} toughness=${blackCrusadeMessage.toughness()} armour=${blackCrusadeMessage.armour()} unnaturalToughness=${blackCrusadeMessage.unnaturalToughness()} machine=${blackCrusadeMessage.machine()}  `;
               }
               else if (action == 'psyattack') {
                   SoundFX.PlayWeaponSoundEffect(blackCrusadeMessage); //Sound Effect
@@ -405,23 +404,16 @@
               };    
           },
           
+          
           CreateApplyDamageModel : function(blackCrusadeMessage) {
               
               //I want basically a combo of info and the final damage
-              var totalAc =  parseInt(blackCrusadeMessage.armour()) + parseInt(blackCrusadeMessage.machine());
-            //log(`totalAc = ${totalAc}`);
-              var totalTough =  parseInt(blackCrusadeMessage.unnaturalToughness()) + Math.floor(blackCrusadeMessage.toughness()/10);
-            //log(`totalTough = ${totalTough}`);
-              var totalAC = Math.max(totalAc - parseInt(blackCrusadeMessage.penetration()), 0);
-            //log(`totalAC = ${totalAC}`);
-              var totalDamage = Math.max( (parseInt(blackCrusadeMessage.damage()) - totalAC - totalTough), 0)
-            //log(`totalDamage = ${totalDamage}`);
-              
-              //log (`Answer ${blackCrusadeMessage.damage()} - ${totalAC} - ${totalTough}`);
-              
-              
+              var totalAc =  this.GetNumeric(blackCrusadeMessage.armour()) + this.GetNumeric(blackCrusadeMessage.machine());
+              var totalTough =  this.GetNumeric(blackCrusadeMessage.unnaturalToughness()) + Math.floor(blackCrusadeMessage.toughness()/10);
+              var totalAC = Math.max(totalAc - this.GetNumeric(blackCrusadeMessage.penetration()), 0);
+              var totalDamage = Math.max( (this.GetNumeric(blackCrusadeMessage.damage()) - totalAC - totalTough), 0)
+            
               damageTip = `Max((${blackCrusadeMessage.damage()} - Max((${blackCrusadeMessage.armour()} + ${blackCrusadeMessage.machine()} - ${blackCrusadeMessage.penetration()}), 0) - Floor(${blackCrusadeMessage.toughness()}/10)), 0)`; //format all the info here
-            //log(damageTip);
             
               return {
                   "headerText" : "Apply Damage",
@@ -545,6 +537,10 @@
           },
           
           //Private
+          GetNumeric : function(num) {
+              var parsed = parseInt(num);
+              return isNaN(parsed) ? 0 : parsed;
+          },
           
           CalculatePsyPowerValue : function(blackCrusadeMessage) {
             //we might be using a characteristic so use the number, or a skill so use the expression total  
@@ -1064,20 +1060,6 @@
           this.CreateApplyDamageView = function(model) {
               var view = new View();
               
-              //TODO something like Madox damages troll
-              
-              //Add to the view
-              /*
-              "playerName" : this.GetPlayerName(blackCrusadeMessage),
-              "characterName" : blackCrusadeMessage.characterName(),
-              "damage" : blackCrusadeMessage.damage(), 
-              "penetration" : blackCrusadeMessage.penetration(), 
-              "toughness" : blackCrusadeMessage.toughness(), 
-              "unnaturalToughness" : blackCrusadeMessage.unnaturalToughness(), 
-              "armour" : blackCrusadeMessage.armour(),
-              "machine" : blackCrusadeMessage.machine(),
-              "totalDamage" : totalDamage
-                  */
                view.AddHeader(model.headerText, "", "", "");
                view.AddRow(RowObjectFactory.CreateCenteredRow(`${model.damage} Pen ${model.penetration}`, ""));
                view.AddRow(RowObjectFactory.CreateCenteredRow(`◎ ${model.totalDamage} ◎`, model.damageTip));
@@ -1184,24 +1166,10 @@
           }
           
           this.CreateApplyDamageButton = function(characterName, damage, penetration) {
-              
-            //@{selected|Wounds}
-            //@{selected|HArmour} //per location
-            //@{UnT}+floor(@{Toughness}/10)+@{mactrait}
-            //?{Location|Head,@{selected|HArmour}|Right Arm|@{selected|HArmour}}
-            
-            //--armour%%COL%%?{Location|Head,@{selected|HArmour}|Right Arm|@{selected|HArmour}}|
-            //  --toughness%%COL%%@{selected|UnT}+floor(@{selected|Toughness}/10)+@{selected|mactrait}|
-            //--wounds%%COL%%@{selected|Wounds}|
-            
-            //--toughness%%COL%%@{selected|UnT}+floor(@{selected|Toughness}/10)+@{selected|mactrait}|
-            //return `[Apply Damage](!edy{{--characterName%%COL%%${characterName}|--action%%COL%%applyDamage|--damage%%COL%%${damage}|--pen%%COL%%${penetration}|--wounds%%COL%%@{selected|Wounds}|--toughness%%COL%%@{selected|UnT}+floor(@{selected|Toughness}/10)|--armour%%COL%%?{Location|Head,@{selected|HArmour}|Right Arm|@{selected|HArmour}}|}})`;
-            return `[Apply Damage](!edy{{--characterName%%COL%%${characterName}|--action%%COL%%applyDamage|--damage%%COL%%?{Damage|${damage}}|--pen%%COL%%${penetration}|--unt%%COL%%&#64;{selected|UnT}|--toughness%%COL%%&#64;{selected|Toughness}|--machine%%COL%%&#64;{selected|mactrait}|--armour%%COL%%?{Location|Head,&#64;{selected|HArmour}|Right Arm,&#64;{selected|ArArmour}|Body,&#64;{selected|BArmour}|Left Arm,&#64;{selected|AlArmour}|Right Leg,&#64;{selected|LrArmour}|Left Leg,&#64;{selected|LlArmour}|}|}})`;
-            
-            // return (`[Apply Damage 3](!edy{{--characterName%%COL%%${characterName}|--action%%COL%%applyDamage|--damage%%COL%%?{Damage|${damage}}|--pen%%COL%%${penetration}|--unt%%COL%%&#64;{selected|UnT}}})`);
+              //TODO Default to correct body part
+              return `[Apply Damage](!edy{{--characterName%%COL%%${characterName}|--action%%COL%%applyDamage|--damage%%COL%%?{Damage|${damage}}|--pen%%COL%%${penetration}|--unt%%COL%%&#64;{selected|UnT}|--toughness%%COL%%&#64;{selected|Toughness}|--machine%%COL%%&#64;{selected|mactrait}|--armour%%COL%%?{Location|Head,&#64;{selected|HArmour}|Right Arm,&#64;{selected|ArArmour}|Body,&#64;{selected|BArmour}|Left Arm,&#64;{selected|AlArmour}|Right Leg,&#64;{selected|LrArmour}|Left Leg,&#64;{selected|LlArmour}|}|}})`;
           }
           
-           
       }
       
       
@@ -1358,9 +1326,7 @@
               row += `<div style="${rowStyle} ${bottomRowStyle}" >`;
               row += `<span style="${dataStyle}" class="userscript-inlinerollresult userscript-showtip userscript-tipsy" title='${rowObject.tip}' >${rowObject.text}</span></div>`;
               
-              
               return row;
-            
           };
       }
       
