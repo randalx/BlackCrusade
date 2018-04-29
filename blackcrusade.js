@@ -74,7 +74,6 @@
           }
       });
       
-      
       var SoundFX = {
           PlayWeaponSoundEffect : function(blackCrusadeMessage) {
               
