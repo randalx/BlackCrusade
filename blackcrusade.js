@@ -1166,8 +1166,7 @@
           }
           
           this.CreateApplyDamageButton = function(characterName, damage, penetration) {
-              //TODO Default to correct body part
-              return `[Apply Damage](!edy{{--characterName%%COL%%${characterName}|--action%%COL%%applyDamage|--damage%%COL%%?{Damage|${damage}}|--pen%%COL%%${penetration}|--unt%%COL%%&#64;{selected|UnT}|--toughness%%COL%%&#64;{selected|Toughness}|--machine%%COL%%&#64;{selected|mactrait}|--armour%%COL%%?{Location|Head,&#64;{selected|HArmour}|Right Arm,&#64;{selected|ArArmour}|Body,&#64;{selected|BArmour}|Left Arm,&#64;{selected|AlArmour}|Right Leg,&#64;{selected|LrArmour}|Left Leg,&#64;{selected|LlArmour}|}|}})`;
+            return `[Apply Damage](!edy{{--characterName%%COL%%${characterName}|--action%%COL%%applyDamage|--damage%%COL%%?{Damage|${damage}}|--pen%%COL%%${penetration}|--unt%%COL%%&#64;{selected|UnT}|--toughness%%COL%%&#64;{selected|Toughness}|--machine%%COL%%&#64;{selected|mactrait}|--armour%%COL%%?{Location|Head,&#64;{selected|HArmour}|Right Arm,&#64;{selected|ArArmour}|Body,&#64;{selected|BArmour}|Left Arm,&#64;{selected|AlArmour}|Right Leg,&#64;{selected|LrArmour}|Left Leg,&#64;{selected|LlArmour}|}|}})`;
           }
           
       }
@@ -1236,26 +1235,37 @@
              this.rows.push(row);
           };
           
+          
           this.CreateCard = function(playerName, small) {
               
              var len = this.rows.length;
               var even = true;
+              var lastIndex = this.LastCardRowIndex();
               var cardContent =  this.header + 
                   this.rows
                   .map((row, index) => 
                       {
-                          var last = index + 1 === len;
+                          var last = index == lastIndex;
                           if (row.type === "regular") {
                               var result = this.GenerateRegularRow(row, last, even);
                               even = !even;
                               return result;
                           } else if (row.type === "centered") {
                               return this.GenerateCenteredRow(row, last);
-                          } else {
-                              return row.html;
                           }
                       })
                   .join('');
+                  
+                var butttonContent =  
+                  this.rows
+                  .map((row, index) => 
+                      {
+                          if (row.type === "html") {
+                              return row.html;
+                          }
+                      })
+                  .join('');          
+                  
           
               //Player Name
               var display = `<div style='text-align:left' ><span >${playerName}</span></div><br/>`;
@@ -1263,11 +1273,24 @@
               //Card
               var padding = small ? 35 : 20;
               var shadow = "box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;";
-              display += `<div style="clear: both;  margin-left: -7px; border-radius: 5px; padding:0,${padding}px,0,${padding}px;"><div style="${shadow}">${cardContent}</div></div>`;
+              display += `<div style="clear: both;  margin-left: -7px; border-radius: 5px; padding:0,${padding}px,10px,${padding}px;"><div style="${shadow}">${cardContent}</div></div>`;
               
+              display += butttonContent;
                       
               return display;
           };
+          
+          this.LastCardRowIndex = function() {
+              var last = 0;
+              for(var i = 0; i < this.rows.length; i++) {
+                  var row =  this.rows[i];
+                  if ((row.type === "regular") || (row.type === "centered")) {
+                      last = i;
+                  }
+              }
+              return last;
+          }
+
           
           this.GenerateRegularRow = function(rowObject, isLastRow, even) {
              
